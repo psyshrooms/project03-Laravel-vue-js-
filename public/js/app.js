@@ -24785,10 +24785,18 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         chat: {
             message: [],
             user: [],
-            color: []
+            color: [],
+            time: []
+        },
+        typing: ''
+    },
+    watch: {
+        message: function message() {
+            Echo.private('chat').whisper('typing', {
+                name: this.message
+            });
         }
     },
-
     methods: {
         send: function send() {
             var _this = this;
@@ -24798,6 +24806,7 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                 this.chat.message.push(this.message);
                 this.chat.user.push('you');
                 this.chat.color.push('success');
+                this.chat.time.push(this.getTime());
 
                 axios.post('/send', {
                     message: this.message
@@ -24808,6 +24817,10 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                     console.log(error);
                 });
             }
+        },
+        getTime: function getTime() {
+            var time = new Date();
+            return time.getHours() + ':' + time.getMinutes();
         }
     },
     mounted: function mounted() {
@@ -24817,8 +24830,14 @@ var app = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             _this2.chat.message.push(e.message);
             _this2.chat.user.push(e.user);
             _this2.chat.color.push('danger');
-
-            console.log(e);
+            _this2.chat.time.push(_this2.getTime());
+            // console.log(e);
+        }).listenForWhisper('typing', function (e) {
+            if (e.name != '') {
+                _this2.typing = 'typing....';
+            } else {
+                _this2.typing = '';
+            }
         });
     }
 });
@@ -52292,10 +52311,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
 
-    props: ['color', 'user'],
+    props: ['color', 'user', 'time'],
     computed: {
         className: function className() {
             return 'list-group-item-' + this.color;
@@ -52328,6 +52349,10 @@ var render = function() {
       [_vm._t("default")],
       2
     ),
+    _vm._v(" "),
+    _c("span", { staticClass: "badge  float-right", class: _vm.badgeClass }, [
+      _vm._v(_vm._s(_vm.time))
+    ]),
     _vm._v(" "),
     _c("small", { staticClass: "badge  float-right", class: _vm.badgeClass }, [
       _vm._v(_vm._s(_vm.user))

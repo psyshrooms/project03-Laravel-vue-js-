@@ -46,16 +46,19 @@
                           <a href="#" class="list-group-item list-group-item-action disabled">Vestibulum at eros</a>
                       </div>
                       <div class="col-sm-8">
+
                           <ul v-chat-scroll  class="list-group my-scroller">
                           <message
                           v-for="value,index in chat.message "
                           :key="value.index"
                           :color=chat.color[index]
                           :user =chat.user[index]
+                          :time =chat.time[index]
                           >
                               @{{ value }}
                           </message>
                           </ul>
+                          <div class="label label-info">@{{ typing }}</div>
                           <input v-model="message" @keyup.enter="send" type="text" class="form-control" placeholder="Type your message">
 
                       </div>

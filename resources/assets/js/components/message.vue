@@ -3,7 +3,9 @@
         <a :class="className" href="#" class="list-group-item list-group-item-action">
             <slot>
             </slot>
+
         </a>
+        <span :class="badgeClass" class="badge  float-right">{{ time }}</span>
         <small :class="badgeClass" class="badge  float-right">{{ user}}</small>
     </div>
 </template>
@@ -13,7 +15,8 @@
 
         props: [
             'color',
-            'user'
+            'user',
+            'time'
 
         ],
         computed: {
