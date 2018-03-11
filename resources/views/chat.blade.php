@@ -48,9 +48,10 @@
                       <div class="col-sm-8">
                           <ul v-chat-scroll  class="list-group my-scroller">
                           <message
-                          v-for="value in chat.message "
+                          v-for="value,index in chat.message "
                           :key="value.index"
-                          color="success"
+                          :color=chat.color[index]
+                          :user =chat.user[index]
                           >
                               @{{ value }}
                           </message>

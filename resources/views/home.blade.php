@@ -15,7 +15,7 @@
                     @endif
 
                     You are logged in!
-                       <a href="{{url('/gallery/')}}"> <button type="button" class="btn btn-warning">Chatting</button></a>
+                       <a href="{{url('/chat')}}"> <button type="button" class="btn btn-warning">Chatting</button></a>
                 </div>
             </div>
         </div>

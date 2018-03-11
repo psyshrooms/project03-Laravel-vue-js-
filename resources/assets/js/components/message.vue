@@ -4,7 +4,7 @@
             <slot>
             </slot>
         </a>
-        <small :class="badgeClass" class="badge  float-right">you</small>
+        <small :class="badgeClass" class="badge  float-right">{{ user}}</small>
     </div>
 </template>
 
@@ -12,7 +12,9 @@
     export default {
 
         props: [
-            'color'
+            'color',
+            'user'
+
         ],
         computed: {
             className() {
